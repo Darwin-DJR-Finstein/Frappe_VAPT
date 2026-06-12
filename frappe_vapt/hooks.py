@@ -137,13 +137,11 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"File": {
+		"validate": "frappe_vapt.vapt.file_security.reject_dangerous_files",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
@@ -197,7 +195,7 @@ app_license = "mit"
 # Request Events
 # ----------------
 # before_request = ["frappe_vapt.utils.before_request"]
-# after_request = ["frappe_vapt.utils.after_request"]
+after_request = ["frappe_vapt.vapt.file_security.harden_file_response"]
 
 # Job Events
 # ----------
