@@ -140,7 +140,10 @@ app_license = "mit"
 doc_events = {
 	"File": {
 		"validate": "frappe_vapt.vapt.file_security.reject_dangerous_files",
-	}
+	},
+	"Comment": {
+		"validate": "frappe_vapt.vapt.comment_security.sanitize_comment_content",
+	},
 }
 
 # Scheduled Tasks
