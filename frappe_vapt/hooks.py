@@ -206,9 +206,19 @@ override_whitelisted_methods = {
 after_request = [
 	"frappe_vapt.vapt.file_security.harden_file_response",
 	"frappe_vapt.vapt.version_security.scrub_version_response",
+	"frappe_vapt.vapt.session_security.harden_session_cookie",
 ]
 
 boot_session = ["frappe_vapt.vapt.version_security.redact_boot_versions"]
+
+on_session_creation = [
+	"frappe_vapt.vapt.session_security.enforce_session_limit",
+	"frappe_vapt.vapt.session_security.record_session_fingerprint",
+]
+
+auth_hooks = [
+	"frappe_vapt.vapt.session_security.enforce_session_fingerprint",
+]
 
 # Job Events
 # ----------
