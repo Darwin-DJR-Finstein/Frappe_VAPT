@@ -175,9 +175,10 @@ doc_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "frappe_vapt.event.get_events"
-# }
+override_whitelisted_methods = {
+	"frappe.utils.change_log.get_versions": "frappe_vapt.vapt.version_security.get_versions_safe",
+	"frappe.utils.change_log.update_last_known_versions": "frappe_vapt.vapt.version_security.update_last_known_versions_safe",
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -198,7 +199,12 @@ doc_events = {
 # Request Events
 # ----------------
 # before_request = ["frappe_vapt.utils.before_request"]
-after_request = ["frappe_vapt.vapt.file_security.harden_file_response"]
+after_request = [
+	"frappe_vapt.vapt.file_security.harden_file_response",
+	"frappe_vapt.vapt.version_security.scrub_version_response",
+]
+
+boot_session = ["frappe_vapt.vapt.version_security.redact_boot_versions"]
 
 # Job Events
 # ----------
